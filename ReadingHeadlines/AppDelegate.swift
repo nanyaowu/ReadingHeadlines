@@ -16,7 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Create a NewsItemStore
+        let newsItemStore = NewsItemStore()
+        
+        // Access the FeedsViewController and set its items store
+        let navController = window!.rootViewController as! UINavigationController
+        let feedsController = navController.topViewController as! FeedsViewController
+        feedsController.newsItemStore = newsItemStore
+        
         return true
+        
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4EA2447821B6A68B005165CC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2447721B6A68B005165CC /* WebViewController.swift */; };
+		4EA2447A21B6AEB5005165CC /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2447921B6AEB5005165CC /* NewsItem.swift */; };
+		4EA2447C21B6B041005165CC /* NewsItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2447B21B6B041005165CC /* NewsItemStore.swift */; };
 		4ED6868F21B4EA21003EA8CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6868E21B4EA21003EA8CD /* AppDelegate.swift */; };
-		4ED6869121B4EA21003EA8CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6869021B4EA21003EA8CD /* ViewController.swift */; };
+		4ED6869121B4EA21003EA8CD /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6869021B4EA21003EA8CD /* FeedsViewController.swift */; };
 		4ED6869421B4EA21003EA8CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED6869221B4EA21003EA8CD /* Main.storyboard */; };
 		4ED6869621B4EA22003EA8CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED6869521B4EA22003EA8CD /* Assets.xcassets */; };
 		4ED6869921B4EA22003EA8CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED6869721B4EA22003EA8CD /* LaunchScreen.storyboard */; };
@@ -34,9 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4EA2447721B6A68B005165CC /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		4EA2447921B6AEB5005165CC /* NewsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		4EA2447B21B6B041005165CC /* NewsItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsItemStore.swift; sourceTree = "<group>"; };
 		4ED6868B21B4EA21003EA8CD /* ReadingHeadlines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadingHeadlines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ED6868E21B4EA21003EA8CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4ED6869021B4EA21003EA8CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4ED6869021B4EA21003EA8CD /* FeedsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		4ED6869321B4EA21003EA8CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4ED6869521B4EA22003EA8CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ED6869821B4EA22003EA8CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,7 +104,10 @@
 			isa = PBXGroup;
 			children = (
 				4ED6868E21B4EA21003EA8CD /* AppDelegate.swift */,
-				4ED6869021B4EA21003EA8CD /* ViewController.swift */,
+				4ED6869021B4EA21003EA8CD /* FeedsViewController.swift */,
+				4EA2447721B6A68B005165CC /* WebViewController.swift */,
+				4EA2447921B6AEB5005165CC /* NewsItem.swift */,
+				4EA2447B21B6B041005165CC /* NewsItemStore.swift */,
 				4ED6869221B4EA21003EA8CD /* Main.storyboard */,
 				4ED6869521B4EA22003EA8CD /* Assets.xcassets */,
 				4ED6869721B4EA22003EA8CD /* LaunchScreen.storyboard */,
@@ -256,8 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4ED6869121B4EA21003EA8CD /* ViewController.swift in Sources */,
+				4ED6869121B4EA21003EA8CD /* FeedsViewController.swift in Sources */,
+				4EA2447A21B6AEB5005165CC /* NewsItem.swift in Sources */,
+				4EA2447821B6A68B005165CC /* WebViewController.swift in Sources */,
 				4ED6868F21B4EA21003EA8CD /* AppDelegate.swift in Sources */,
+				4EA2447C21B6B041005165CC /* NewsItemStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
