@@ -8,9 +8,8 @@
 
 import UIKit
 
-struct NewsItem {
-    var title: String = "first news"
-    var link: String = "https://www.apple.com"
-    
-
+class NewsItem {
+    var title: String?
+    var link: String?
+    var description: String?
 }

@@ -11,17 +11,48 @@ import UIKit
 class NewsItemStore {
     
     var allNewsItems = [NewsItem]()
+    var tableView: UITableView!
     
-    @discardableResult func createItem() -> NewsItem {
-        let newNewsItem = NewsItem(title: "first news", link: "https://www.apple.com")
-        allNewsItems.append(newNewsItem)
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        return URLSession(configuration: config)
+    }()
+    
+    
+    func fetchXML(withXMLAdress xmlAdress: String) {
         
-        return newNewsItem
+        if let url = URL(string: xmlAdress) {
+            let task = session.dataTask(with: url) {
+                (data, response, error) -> Void in
+                if error != nil {
+                    print(error!.localizedDescription)
+                    return
+                }
+                if let rssData = data {
+                    let parser = XMLParser(data: rssData)
+                    let rssParserDelegate = RSSParserDelegate()
+                    parser.delegate = rssParserDelegate
+                    if parser.parse() == true {
+                        print("Parse succeed.")
+                        self.allNewsItems = rssParserDelegate.getResult()
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                    } else {
+                        print("Parse fail")
+                    }
+                }
+            }
+            // 錯誤 資料傳不出來這邊
+            task.resume()
+//            print(self.allNewsItems[0].title)
+//            print("aa")
+//            print("aa")
+        }
+        print("fetching finished.")
+        print(self.allNewsItems)
     }
     
-    init() {
-        createItem()
-    }
     
     
 }

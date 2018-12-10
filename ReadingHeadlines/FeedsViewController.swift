@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class FeedsViewController: UITableViewController {
     
     var newsItemStore: NewsItemStore!
@@ -16,8 +17,18 @@ class FeedsViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        
         print("FeedsViewController loaded its view")
+        getResult()
+        //print(newsItemStore.allNewsItems)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsItemStore.allNewsItems.count
@@ -28,10 +39,18 @@ class FeedsViewController: UITableViewController {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
         
         // Set the text of cell with the title of the newsItem
-        let item = newsItemStore.allNewsItems[indexPath.row]
+        let item = newsItemStore.allNewsItems[indexPath.row] as NewsItem
         cell.textLabel?.text = item.title
+        print(cell.textLabel?.text)
         
         return cell
+    }
+    
+    func getResult() {
+        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money")
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
 }

@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navController = window!.rootViewController as! UINavigationController
         let feedsController = navController.topViewController as! FeedsViewController
         feedsController.newsItemStore = newsItemStore
+        newsItemStore.tableView = feedsController.tableView
         
         return true
         
