@@ -11,7 +11,7 @@ import UIKit
 class NewsItemStore {
     
     var allNewsItems = [NewsItem]()
-    var tableView: UITableView!
+    var tableView: UIView!
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -35,9 +35,9 @@ class NewsItemStore {
                     if parser.parse() == true {
                         print("Parse succeed.")
                         self.allNewsItems = rssParserDelegate.getResult()
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
+//                        DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+//                        }
                     } else {
                         print("Parse fail")
                     }
