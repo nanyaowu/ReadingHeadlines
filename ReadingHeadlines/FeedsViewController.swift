@@ -19,8 +19,14 @@ class FeedsViewController: UITableViewController {
         
         
         print("FeedsViewController loaded its view")
-        getResult()
-        //print(newsItemStore.allNewsItems)
+        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+            (parseData) in
+            self.newsItemStore.allNewsItems = parseData
+            self.tableView.reloadData()
+        }
+        //getResult()
+        print(newsItemStore.allNewsItems)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,9 +53,9 @@ class FeedsViewController: UITableViewController {
     }
     
     func getResult() {
-        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money")
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+            (parseData) in
+            self.newsItemStore.allNewsItems = parseData
         }
     }
 

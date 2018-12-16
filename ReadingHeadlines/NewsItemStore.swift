@@ -19,7 +19,7 @@ class NewsItemStore {
     }()
     
     
-    func fetchXML(withXMLAdress xmlAdress: String) {
+    func fetchXML(withXMLAdress xmlAdress: String, completion: @escaping ([NewsItem]) -> Void) {
         
         if let url = URL(string: xmlAdress) {
             let task = session.dataTask(with: url) {
@@ -34,7 +34,11 @@ class NewsItemStore {
                     parser.delegate = rssParserDelegate
                     if parser.parse() == true {
                         print("Parse succeed.")
-                        self.allNewsItems = rssParserDelegate.getResult()
+                        let parseData = rssParserDelegate.getResult()
+                        OperationQueue.main.addOperation {
+                            completion(parseData)
+                        }
+                        
 //                        DispatchQueue.main.async {
 //                            self.tableView.reloadData()
 //                        }
@@ -50,7 +54,7 @@ class NewsItemStore {
 //            print("aa")
         }
         print("fetching finished.")
-        print(self.allNewsItems)
+        //print(self.allNewsItems)
     }
     
     

@@ -17,10 +17,16 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     var newsItemStore: NewsItemStore!
     
+    override func viewDidLoad() {
+        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+            (parseData) in
+            self.newsItemStore.allNewsItems = parseData
+        }
+    }
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
         
-        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money")
+        
         
         for item in newsItemStore.allNewsItems {
             myUtterance = AVSpeechUtterance(string: item.title!)
