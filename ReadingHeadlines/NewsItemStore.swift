@@ -48,7 +48,7 @@ class NewsItemStore {
                     }
                 }
             }
-            // 錯誤 資料傳不出來這邊
+            
             task.resume()
 //            print(self.allNewsItems[0].title)
 //            print("aa")

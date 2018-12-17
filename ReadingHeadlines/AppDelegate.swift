@@ -30,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         // ReadingViewController is initial controller
-        let readingController = window!.rootViewController as! ReadingViewController
+        let navController = window!.rootViewController as! UINavigationController
+        let readingController = navController.topViewController as! ReadingViewController
         readingController.newsItemStore = newsItemStore
         newsItemStore.tableView = readingController.view
         
