@@ -14,19 +14,28 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     let synth = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
+    @IBOutlet var playButton: UIButton!
+    
+    @IBOutlet var spinner: UIActivityIndicatorView!
     
     var newsItemStore: NewsItemStore!
     
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        spinner.startAnimating()
+        
         newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
             (parseData) in
             self.newsItemStore.allNewsItems = parseData
+            
+            self.spinner.stopAnimating()
+            self.playButton.isHidden = false
         }
+        
     }
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
-        
-        
         
         for item in newsItemStore.allNewsItems {
             myUtterance = AVSpeechUtterance(string: item.title!)
@@ -39,6 +48,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         }
         
     }
+    
     
     
     

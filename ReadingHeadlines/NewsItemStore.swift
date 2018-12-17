@@ -39,6 +39,7 @@ class NewsItemStore {
                             completion(parseData)
                         }
                         
+                        
 //                        DispatchQueue.main.async {
 //                            self.tableView.reloadData()
 //                        }
