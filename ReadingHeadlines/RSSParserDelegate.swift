@@ -50,7 +50,11 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
         if currentElementValue == nil {
             currentElementValue = string
         } else {
-            currentElementValue = currentElementValue! + string
+            if string == " " {
+                currentElementValue = currentElementValue! + "，"
+            } else {
+                currentElementValue = currentElementValue! + string
+            }
         }
     }
     
