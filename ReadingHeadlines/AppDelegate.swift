@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navController = window!.rootViewController as! UINavigationController
         let readingController = navController.topViewController as! ReadingViewController
         readingController.newsItemStore = newsItemStore
-        newsItemStore.tableView = readingController.view
+        //newsItemStore.tableView = readingController.view
         
         return true
         

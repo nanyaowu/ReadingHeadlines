@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vnV-wT-C69">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="vnV-wT-C69">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vnV-wT-C69" id="VQb-rk-CbH">
@@ -27,7 +27,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="5OH-tZ-rQb" kind="show" identifier="RSSDetails" id="1C7-Ch-xi2"/>
+                                    <segue destination="iKd-Kp-AHM" kind="show" identifier="RSSWeb" id="991-kq-CfA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -43,22 +43,38 @@
             <point key="canvasLocation" x="1511" y="134"/>
         </scene>
         <!--Web View Controller-->
-        <scene sceneID="thh-2S-8XI">
+        <scene sceneID="KZo-q1-rew">
             <objects>
-                <viewController id="5OH-tZ-rQb" customClass="WebViewController" customModule="ReadingHeadlines" customModuleProvider="target" sceneMemberID="viewController">
-                    <wkWebView key="view" contentMode="scaleToFill" id="sF0-o8-Vz7">
+                <viewController id="iKd-Kp-AHM" customClass="WebViewController" customModule="ReadingHeadlines" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Mj-xW-3EU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <wkWebViewConfiguration key="configuration">
-                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                            <wkPreferences key="preferences"/>
-                        </wkWebViewConfiguration>
-                    </wkWebView>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rg4-b5-LtQ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rg4-b5-LtQ" firstAttribute="top" secondItem="3mg-IB-70F" secondAttribute="top" id="ZMM-h1-l8W"/>
+                            <constraint firstItem="3mg-IB-70F" firstAttribute="bottom" secondItem="Rg4-b5-LtQ" secondAttribute="bottom" id="aUn-0N-Dtx"/>
+                            <constraint firstItem="3mg-IB-70F" firstAttribute="trailing" secondItem="Rg4-b5-LtQ" secondAttribute="trailing" id="cug-BU-2UL"/>
+                            <constraint firstItem="Rg4-b5-LtQ" firstAttribute="leading" secondItem="3mg-IB-70F" secondAttribute="leading" id="p5Z-v2-gEQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3mg-IB-70F"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="Rg4-b5-LtQ" id="kni-d6-f9L"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZHE-Gm-4do" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mcQ-Cm-XUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2290" y="134"/>
+            <point key="canvasLocation" x="2258.4000000000001" y="133.5832083958021"/>
         </scene>
         <!--News Reader-->
         <scene sceneID="GMG-DS-1Wf">
@@ -92,7 +108,7 @@
                         <barButtonItem key="backBarButtonItem" title="  " id="dSX-ob-aeI"/>
                         <barButtonItem key="rightBarButtonItem" title="Feeds" style="plain" id="Ipf-ow-kGV">
                             <connections>
-                                <segue destination="Mfx-uo-QgN" kind="show" id="WFz-AU-033"/>
+                                <segue destination="Mfx-uo-QgN" kind="show" identifier="tableDetail" id="WFz-AU-033"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

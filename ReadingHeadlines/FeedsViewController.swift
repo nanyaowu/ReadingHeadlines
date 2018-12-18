@@ -19,21 +19,16 @@ class FeedsViewController: UITableViewController {
         
         
         print("FeedsViewController loaded its view")
-        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-            (parseData) in
-            self.newsItemStore.allNewsItems.append(parseData)
-            self.tableView.reloadData()
-        }
+//        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+//            (parseData) in
+//            self.newsItemStore.allNewsItems.append(parseData)
+//            self.tableView.reloadData()
+//        }
         //getResult()
-        print(newsItemStore.allNewsItems)
+        //print(newsItemStore.allNewsItems)
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        tableView.reloadData()
-    }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +37,8 @@ class FeedsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create an instance of UITableCell with default appereance
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
+        //let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         // Set the text of cell with the title of the newsItem
         let item = newsItemStore.allNewsItems[indexPath.section][indexPath.row] as NewsItem
@@ -52,12 +48,29 @@ class FeedsViewController: UITableViewController {
         return cell
     }
     
-    func getResult() {
-        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-            (parseData) in
-            self.newsItemStore.allNewsItems.append(parseData)
+//    func getResult() {
+//        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+//            (parseData) in
+//            self.newsItemStore.allNewsItems.append(parseData)
+//        }
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "RSSWeb"?:
+            let destinationVC = segue.destination as! WebViewController
+            if let section = tableView.indexPathForSelectedRow?.section,
+                let row = tableView.indexPathForSelectedRow?.row {
+                print(section)
+                print(row)
+                destinationVC.rssLink = newsItemStore.allNewsItems[section][row].link
+            }
+            
+        default:
+            preconditionFailure("Unexpected segue identifier")
         }
     }
+    
 
 }
 

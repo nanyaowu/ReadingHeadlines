@@ -11,7 +11,7 @@ import UIKit
 class NewsItemStore {
     
     var allNewsItems = [[NewsItem]]()
-    var tableView: UIView!
+    // var tableView: UIView!
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default

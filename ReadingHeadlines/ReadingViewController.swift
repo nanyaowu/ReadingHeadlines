@@ -23,6 +23,8 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        synth.delegate = self
+        
         spinner.startAnimating()
         
         newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
@@ -42,7 +44,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     var isPausing = false
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
-        synth.delegate = self
+        
         var itemsString = String()
         
         if isPlaying == false {
@@ -53,6 +55,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             // 可能可以寫成一個function
             for news in newsItemStore.allNewsItems {
                 for item in news {
+                    itemsString.append("經濟日報。")
                     itemsString.append(item.title!)
                     itemsString.append("。")
                 }
@@ -87,7 +90,16 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     
     // MARK: prepare segure
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "tableDetail"?:
+            let destinationVC = segue.destination as! FeedsViewController
+            destinationVC.newsItemStore = newsItemStore
+            
+        default:
+            preconditionFailure("Unexpected segue identifier")
+        }
+    }
     
     
 }
