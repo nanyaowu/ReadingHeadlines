@@ -10,7 +10,7 @@ import UIKit
 
 class NewsItemStore {
     
-    var allNewsItems = [NewsItem]()
+    var allNewsItems = [[NewsItem]]()
     var tableView: UIView!
     
     private let session: URLSession = {

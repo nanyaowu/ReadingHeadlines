@@ -36,7 +36,8 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
                 currentItem = nil
             }
         } else if elementName == "title" {
-            currentItem?.title = currentElementValue!
+            let tempTitle = currentElementValue!.replacingOccurrences(of: " ", with: "，", options: .literal, range: nil)
+            currentItem?.title = tempTitle.replacingOccurrences(of: "，，", with: "，", options: .literal, range: nil)
             //print(currentItem?.title)
         } else if elementName == "link" {
             currentItem?.link = currentElementValue!
@@ -50,11 +51,7 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
         if currentElementValue == nil {
             currentElementValue = string
         } else {
-            if string == " " {
-                currentElementValue = currentElementValue! + "，"
-            } else {
-                currentElementValue = currentElementValue! + string
-            }
+            currentElementValue = currentElementValue! + string
         }
     }
     

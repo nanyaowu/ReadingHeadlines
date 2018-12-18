@@ -21,7 +21,7 @@ class FeedsViewController: UITableViewController {
         print("FeedsViewController loaded its view")
         newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
             (parseData) in
-            self.newsItemStore.allNewsItems = parseData
+            self.newsItemStore.allNewsItems.append(parseData)
             self.tableView.reloadData()
         }
         //getResult()
@@ -37,7 +37,7 @@ class FeedsViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsItemStore.allNewsItems.count
+        return newsItemStore.allNewsItems[section].count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,7 +45,7 @@ class FeedsViewController: UITableViewController {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
         
         // Set the text of cell with the title of the newsItem
-        let item = newsItemStore.allNewsItems[indexPath.row] as NewsItem
+        let item = newsItemStore.allNewsItems[indexPath.section][indexPath.row] as NewsItem
         cell.textLabel?.text = item.title
         print(cell.textLabel?.text)
         
@@ -55,7 +55,7 @@ class FeedsViewController: UITableViewController {
     func getResult() {
         newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
             (parseData) in
-            self.newsItemStore.allNewsItems = parseData
+            self.newsItemStore.allNewsItems.append(parseData)
         }
     }
 

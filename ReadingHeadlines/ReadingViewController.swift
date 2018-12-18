@@ -27,7 +27,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
         newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
             (parseData) in
-            self.newsItemStore.allNewsItems = parseData
+            self.newsItemStore.allNewsItems.append(parseData)
             
             self.spinner.stopAnimating()
             self.playButton.isHidden = false
@@ -35,9 +35,11 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
     }
     
+    
+    
+    // MARK: 播放控制
     var isPlaying = false
     var isPausing = false
-    
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
         synth.delegate = self
@@ -48,10 +50,15 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             isPlaying = true
             playButton.setTitle("Pause", for: .normal)
             
-            for item in newsItemStore.allNewsItems {
-                itemsString.append(item.title!)
+            // 可能可以寫成一個function
+            for news in newsItemStore.allNewsItems {
+                for item in news {
+                    itemsString.append(item.title!)
+                    itemsString.append("。")
+                }
             }
             
+            print(itemsString)
             myUtterance = AVSpeechUtterance(string: itemsString)
             myUtterance.rate = 0.5
             myUtterance.pitchMultiplier = 1.2
@@ -77,5 +84,10 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         isPlaying = false
         playButton.setTitle("Play", for: .normal)
     }
+    
+    
+    // MARK: prepare segure
+    
+    
     
 }
