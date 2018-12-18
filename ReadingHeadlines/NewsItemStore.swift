@@ -11,7 +11,6 @@ import UIKit
 class NewsItemStore {
     
     var allNewsItems = [[NewsItem]]()
-    // var tableView: UIView!
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -24,10 +23,12 @@ class NewsItemStore {
         if let url = URL(string: xmlAdress) {
             let task = session.dataTask(with: url) {
                 (data, response, error) -> Void in
+                // 如果出現error就跳出
                 if error != nil {
                     print(error!.localizedDescription)
                     return
                 }
+                // 確認出現data
                 if let rssData = data {
                     let parser = XMLParser(data: rssData)
                     let rssParserDelegate = RSSParserDelegate()
@@ -39,10 +40,6 @@ class NewsItemStore {
                             completion(parseData)
                         }
                         
-                        
-//                        DispatchQueue.main.async {
-//                            self.tableView.reloadData()
-//                        }
                     } else {
                         print("Parse fail")
                     }
@@ -50,14 +47,7 @@ class NewsItemStore {
             }
             
             task.resume()
-//            print(self.allNewsItems[0].title)
-//            print("aa")
-//            print("aa")
         }
         print("fetching finished.")
-        //print(self.allNewsItems)
     }
-    
-    
-    
 }

@@ -20,20 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create a NewsItemStore
         let newsItemStore = NewsItemStore()
         
-        // Access the FeedsViewController and set its items store
-        
-        // Feeds View Controller is initial controller
-//        let navController = window!.rootViewController as! UINavigationController
-//        let feedsController = navController.topViewController as! FeedsViewController
-//        feedsController.newsItemStore = newsItemStore
-//        newsItemStore.tableView = feedsController.tableView
-
-        
         // ReadingViewController is initial controller
         let navController = window!.rootViewController as! UINavigationController
         let readingController = navController.topViewController as! ReadingViewController
         readingController.newsItemStore = newsItemStore
-        //newsItemStore.tableView = readingController.view
         
         return true
         

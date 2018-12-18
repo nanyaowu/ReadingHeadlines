@@ -53,6 +53,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             playButton.setTitle("Pause", for: .normal)
             
             // 可能可以寫成一個function
+            // 將要念的string結合
             for news in newsItemStore.allNewsItems {
                 for item in news {
                     itemsString.append("經濟日報。")
@@ -83,6 +84,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         }
     }
     
+    //播放結束後button調整
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         isPlaying = false
         playButton.setTitle("Play", for: .normal)

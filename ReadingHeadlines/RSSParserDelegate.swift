@@ -15,7 +15,7 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
     var resultArray = [NewsItem]()
     
     
-    
+    // 開始parsing的辨識
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "item" {
             // Start a new item
@@ -29,6 +29,7 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
         }
     }
     
+    // parsing 結束賦值
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             if currentItem != nil {
@@ -36,6 +37,7 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
                 currentItem = nil
             }
         } else if elementName == "title" {
+            // 調整title的字串
             let tempTitle = currentElementValue!.replacingOccurrences(of: " ", with: "，", options: .literal, range: nil)
             currentItem?.title = tempTitle.replacingOccurrences(of: "，，", with: "，", options: .literal, range: nil)
             //print(currentItem?.title)
@@ -47,6 +49,7 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
         currentElementValue = nil
     }
     
+    // parsing過程
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         if currentElementValue == nil {
             currentElementValue = string

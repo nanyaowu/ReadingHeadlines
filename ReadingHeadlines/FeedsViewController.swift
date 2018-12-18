@@ -17,16 +17,7 @@ class FeedsViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         print("FeedsViewController loaded its view")
-//        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-//            (parseData) in
-//            self.newsItemStore.allNewsItems.append(parseData)
-//            self.tableView.reloadData()
-//        }
-        //getResult()
-        //print(newsItemStore.allNewsItems)
-        
     }
     
     
@@ -36,8 +27,7 @@ class FeedsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Create an instance of UITableCell with default appereance
-        //let cell = UITableViewCell(style: .value1, reuseIdentifier: "UITableViewCell")
+        // Create dequeueReusableCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         // Set the text of cell with the title of the newsItem
@@ -48,13 +38,7 @@ class FeedsViewController: UITableViewController {
         return cell
     }
     
-//    func getResult() {
-//        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-//            (parseData) in
-//            self.newsItemStore.allNewsItems.append(parseData)
-//        }
-//    }
-    
+    // MARK: Prepare segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "RSSWeb"?:
