@@ -27,26 +27,36 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
         spinner.startAnimating()
         
-        newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-            (parseData) in
-            self.newsItemStore.allNewsItems.append(parseData)
-            
+        DispatchQueue.main.async {
+            self.newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+                (parseData) in
+                self.newsItemStore.allNewsItems.append(parseData)
+            }
+        }
+        DispatchQueue.main.async {
+            self.newsItemStore.fetchXML(withXMLAdress: "http://www.wsj.com/xml/rss/3_7085.xml") {
+                (parseData) in
+                self.newsItemStore.allNewsItems.append(parseData)
+            }
+        }
+        DispatchQueue.main.async {
+            self.newsItemStore.fetchXML(withXMLAdress: "http://news.ltn.com.tw/rss/focus.xml") {
+                (parseData) in
+                self.newsItemStore.allNewsItems.append(parseData)
+                
+                
+            }
+        }
+        DispatchQueue.main.async {
             self.spinner.stopAnimating()
             self.playButton.isHidden = false
         }
         
-        newsItemStore.fetchXML(withXMLAdress: "http://www.wsj.com/xml/rss/3_7085.xml") {
-            (parseData) in
-            self.newsItemStore.allNewsItems.append(parseData)
-        }
+        
+        
+        
 
-        newsItemStore.fetchXML(withXMLAdress: "http://news.ltn.com.tw/rss/focus.xml") {
-            (parseData) in
-            self.newsItemStore.allNewsItems.append(parseData)
-
-            self.spinner.stopAnimating()
-            self.playButton.isHidden = false
-        }
+        
         
     }
     
