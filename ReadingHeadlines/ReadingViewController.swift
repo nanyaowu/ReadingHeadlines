@@ -35,6 +35,19 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             self.playButton.isHidden = false
         }
         
+        newsItemStore.fetchXML(withXMLAdress: "http://www.wsj.com/xml/rss/3_7085.xml") {
+            (parseData) in
+            self.newsItemStore.allNewsItems.append(parseData)
+        }
+
+        newsItemStore.fetchXML(withXMLAdress: "http://news.ltn.com.tw/rss/focus.xml") {
+            (parseData) in
+            self.newsItemStore.allNewsItems.append(parseData)
+
+            self.spinner.stopAnimating()
+            self.playButton.isHidden = false
+        }
+        
     }
     
     

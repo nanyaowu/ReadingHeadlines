@@ -19,9 +19,17 @@ class FeedsViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         print("FeedsViewController loaded its view")
+        print(newsItemStore.allNewsItems.count)
     }
     
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return newsItemStore.allNewsItems.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsItemStore.allNewsItems[section].count
