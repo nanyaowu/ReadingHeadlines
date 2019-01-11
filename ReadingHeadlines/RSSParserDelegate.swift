@@ -38,8 +38,9 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
             }
         } else if elementName == "title" {
             // 調整title的字串
-            let tempTitle = currentElementValue!.replacingOccurrences(of: " ", with: "，", options: .literal, range: nil)
-            currentItem?.title = tempTitle.replacingOccurrences(of: "，，", with: "，", options: .literal, range: nil)
+//            let tempTitle = currentElementValue!.replacingOccurrences(of: " ", with: "，", options: .literal, range: nil)
+//            currentItem?.title = tempTitle.replacingOccurrences(of: "，，", with: "，", options: .literal, range: nil)
+            currentItem?.title = currentElementValue!
             //print(currentItem?.title)
         } else if elementName == "link" {
             currentItem?.link = currentElementValue!
