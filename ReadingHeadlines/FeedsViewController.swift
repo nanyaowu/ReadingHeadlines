@@ -12,6 +12,7 @@ import UIKit
 class FeedsViewController: UITableViewController {
     
     var newsItemStore: NewsItemStore!
+    var cellID = "cellID"
     
     
     override func viewDidLoad() {
@@ -20,6 +21,8 @@ class FeedsViewController: UITableViewController {
         
         print("FeedsViewController loaded its view")
         print(newsItemStore.allNewsItems.count)
+        
+        tableView.register(FeedCell.self, forCellReuseIdentifier: cellID)
     }
     
     
@@ -51,7 +54,7 @@ class FeedsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create dequeueReusableCell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
         
         // Set the text of cell with the title of the newsItem
         let item = newsItemStore.allNewsItems[indexPath.section][indexPath.row] as NewsItem
@@ -62,6 +65,12 @@ class FeedsViewController: UITableViewController {
     }
     
     // MARK: Prepare segue
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "RSSWeb", sender: self)
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "RSSWeb"?:
@@ -77,6 +86,7 @@ class FeedsViewController: UITableViewController {
             preconditionFailure("Unexpected segue identifier")
         }
     }
+    
     
 
 }
