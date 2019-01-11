@@ -28,11 +28,25 @@ class FeedsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 50
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return newsItemStore.allNewsItems[section].count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        if newsItemStore.allNewsItems[section][0].link!.hasPrefix("http://news.ltn") {
+            return "自由時報"
+        } else if newsItemStore.allNewsItems[section][0].link!.hasPrefix("https://www.chinatimes") {
+            return "中國時報"
+        } else if newsItemStore.allNewsItems[section][0].link!.hasPrefix("https://money.udn") {
+            return "經濟日報"
+        } else {
+            return nil
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

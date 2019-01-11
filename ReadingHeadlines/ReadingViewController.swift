@@ -34,7 +34,7 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             }
         }
         DispatchQueue.main.async {
-            self.newsItemStore.fetchXML(withXMLAdress: "http://www.wsj.com/xml/rss/3_7085.xml") {
+            self.newsItemStore.fetchXML(withXMLAdress: "https://www.chinatimes.com/rss/chinatimes-focus.xml") {
                 (parseData) in
                 self.newsItemStore.allNewsItems.append(parseData)
             }
