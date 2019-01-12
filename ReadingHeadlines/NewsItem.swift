@@ -12,4 +12,5 @@ struct NewsItem {
     var title: String?
     var link: String?
     var description: String?
+    var isFavored = false
 }
