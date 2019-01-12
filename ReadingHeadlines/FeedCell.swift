@@ -8,16 +8,23 @@
 
 import UIKit
 
+protocol Favorited {
+    func clickFavored(cell: UITableViewCell)
+}
+
 class FeedCell: UITableViewCell {
+    
+    var delegate: Favorited?
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         //backgroundColor = .red
         let favoriteButton = UIButton(type: .system)
-        favoriteButton.setImage(UIImage(named: "star.png"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "heart.png"), for: .normal)
         favoriteButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-        favoriteButton.tintColor = .red
+        // favoriteButton.tintColor = .red
         favoriteButton.addTarget(self, action: #selector(handleMarkAsFavorite), for: .touchUpInside)
         
         
@@ -30,6 +37,7 @@ class FeedCell: UITableViewCell {
     
     @objc private func handleMarkAsFavorite() {
         print("Marking as Favorites")
+        delegate?.clickFavored(cell: self)
     }
     
     required init?(coder aDecoder: NSCoder) {

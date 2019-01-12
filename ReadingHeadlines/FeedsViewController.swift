@@ -9,7 +9,22 @@
 import UIKit
 
 
-class FeedsViewController: UITableViewController {
+class FeedsViewController: UITableViewController, Favorited {
+    // 傳遞favored button被按到
+    func clickFavored(cell: UITableViewCell) {
+        print("now in FeedsViewController")
+        
+        guard let tappedIndexPath = tableView.indexPath(for: cell) else{
+            print("did not generate indexPath.")
+            return
+        }
+        
+        //reverse the favorite icon
+        newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored = !newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored
+        
+        tableView.reloadRows(at: [tappedIndexPath], with: .fade)
+    }
+    
     
     var newsItemStore: NewsItemStore!
     var cellID = "cellID"
@@ -54,11 +69,16 @@ class FeedsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create dequeueReusableCell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! FeedCell
+        cell.delegate = self
         
         // Set the text of cell with the title of the newsItem
         let item = newsItemStore.allNewsItems[indexPath.section][indexPath.row] as NewsItem
         cell.textLabel?.text = item.title
+        
+        cell.accessoryView?.tintColor = item.isFavored ? UIColor.red : UIColor.lightGray
+        
+        
         print(cell.textLabel?.text)
         
         return cell
