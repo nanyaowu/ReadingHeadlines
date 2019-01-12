@@ -20,8 +20,8 @@ class FeedsViewController: UITableViewController, Favorited {
         }
         
         //reverse the favorite icon
-        newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored = !newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored
-        
+        let isFavored = newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored
+        newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored = !isFavored
         tableView.reloadRows(at: [tappedIndexPath], with: .fade)
     }
     
