@@ -36,11 +36,45 @@
                             <outlet property="delegate" destination="Mfx-uo-QgN" id="Zgf-Xp-L2T"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="RSS Feeds" id="sLT-bb-NOa"/>
+                    <navigationItem key="navigationItem" title="RSS Feeds" id="sLT-bb-NOa">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="PkD-oO-HY6">
+                            <connections>
+                                <segue destination="QQP-Py-oSn" kind="show" identifier="Favorite" id="NQe-ZZ-ZJv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k67-ss-FBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1511" y="134"/>
+        </scene>
+        <!--Favorite View Controller-->
+        <scene sceneID="e0M-df-1Wq">
+            <objects>
+                <tableViewController id="QQP-Py-oSn" customClass="FavoriteViewController" customModule="ReadingHeadlines" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="i78-21-1W8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavorCell" id="Asm-7f-NOI">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Asm-7f-NOI" id="q6l-xn-b6q">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QQP-Py-oSn" id="ICc-Cx-EYp"/>
+                            <outlet property="delegate" destination="QQP-Py-oSn" id="vzc-ec-32i"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vlw-37-scI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510" y="869"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="KZo-q1-rew">
