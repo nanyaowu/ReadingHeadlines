@@ -26,31 +26,8 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         synth.delegate = self
         
         spinner.startAnimating()
+        downloadTask()
         
-        DispatchQueue.main.async {
-            self.newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-                (parseData) in
-                self.newsItemStore.allNewsItems.append(parseData)
-            }
-        }
-        DispatchQueue.main.async {
-            self.newsItemStore.fetchXML(withXMLAdress: "https://www.chinatimes.com/rss/chinatimes-focus.xml") {
-                (parseData) in
-                self.newsItemStore.allNewsItems.append(parseData)
-            }
-        }
-        DispatchQueue.main.async {
-            self.newsItemStore.fetchXML(withXMLAdress: "http://news.ltn.com.tw/rss/focus.xml") {
-                (parseData) in
-                self.newsItemStore.allNewsItems.append(parseData)
-                
-                
-            }
-        }
-        DispatchQueue.main.async {
-            self.spinner.stopAnimating()
-            self.playButton.isHidden = false
-        }
         
         
         
@@ -60,6 +37,49 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
     }
     
+    
+    func downloadTask() {
+        let group = DispatchGroup()
+        let serialQueue = DispatchQueue(label: "com.nanyao", attributes: .concurrent)
+        
+        serialQueue.async(group: group) {
+            print("fetching 經濟日報")
+            group.enter()
+            self.newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
+                (parseData) in
+                self.newsItemStore.allNewsItems.append(parseData)
+                print("經濟日報")
+                group.leave()
+            }
+            
+            group.enter()
+            print("fetching 中國時報")
+            self.newsItemStore.fetchXML(withXMLAdress: "https://www.chinatimes.com/rss/chinatimes-focus.xml") {
+                (parseData) in
+                self.newsItemStore.allNewsItems.append(parseData)
+                print("中國時報")
+                group.leave()
+            }
+            
+            group.enter()
+            print("fetching 自由時報")
+            self.newsItemStore.fetchXML(withXMLAdress: "http://news.ltn.com.tw/rss/focus.xml") {
+                (parseData) in
+                self.newsItemStore.allNewsItems.append(parseData)
+                print("自由時報")
+                group.leave()
+            }
+        }
+        
+        group.wait()
+        group.notify(queue: DispatchQueue.main) {
+            self.spinner.stopAnimating()
+            self.playButton.isHidden = false
+            print("stop animation")
+        }
+        
+        
+    }
     
     
     // MARK: 播放控制
@@ -79,7 +99,16 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
             // 將要念的string結合
             for news in newsItemStore.allNewsItems {
                 for item in news {
-                    itemsString.append("經濟日報。")
+                    switch item.link?.prefix(15) {
+                    case "http://news.ltn":
+                        itemsString.append("自由時報。")
+                    case "https://www.chi":
+                        itemsString.append("中國時報。")
+                    case "https://money.u":
+                        itemsString.append("經濟日報。")
+                    default:
+                        itemsString.append("，")
+                    }
                     itemsString.append(item.title!)
                     itemsString.append("。")
                 }

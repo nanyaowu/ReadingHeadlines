@@ -17,7 +17,7 @@ class NewsItemStore {
         return URLSession(configuration: config)
     }()
     
-    let serialQueue = DispatchQueue(label: "com.nanyao.serial")
+    //let serialQueue = DispatchQueue(label: "com.nanyao.serial")
     
     func fetchXML(withXMLAdress xmlAdress: String, completion: @escaping ([NewsItem]) -> Void) {
         
@@ -35,20 +35,20 @@ class NewsItemStore {
                     let rssParserDelegate = RSSParserDelegate()
                     parser.delegate = rssParserDelegate
                     if parser.parse() == true {
-                        print("Parse succeed.")
+                        print("Parse succeed. \(xmlAdress)")
                         let parseData = rssParserDelegate.getResult()
-                        self.serialQueue.async {
+                        //OperationQueue.main.addOperation {
+                        //self.serialQueue.async {
+                        //DispatchQueue.global().sync {
                             completion(parseData)
-                        }
+                        //}
                         
                     } else {
                         print("Parse fail")
                     }
                 }
             }
-            
             task.resume()
         }
-        print("fetching finished.")
     }
 }
