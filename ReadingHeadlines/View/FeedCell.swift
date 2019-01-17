@@ -20,13 +20,10 @@ class FeedCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //backgroundColor = .red
         let favoriteButton = UIButton(type: .system)
-        favoriteButton.setImage(UIImage(named: "heart.png"), for: .normal)
-        favoriteButton.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-        // favoriteButton.tintColor = .red
+        favoriteButton.setImage(UIImage(named: "plus2.png"), for: .normal)
+        favoriteButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         favoriteButton.addTarget(self, action: #selector(handleMarkAsFavorite), for: .touchUpInside)
-        
         
         
         

@@ -33,8 +33,11 @@ class RSSParserDelegate: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             if currentItem != nil {
-                self.resultArray.append(currentItem!)
-                currentItem = nil
+                if !currentItem!.title!.hasPrefix("《TAIPEI TIMES》") {
+                    self.resultArray.append(currentItem!)
+                    currentItem = nil
+                }
+                
             }
         } else if elementName == "title" {
             // 調整title的字串

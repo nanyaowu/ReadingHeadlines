@@ -10,14 +10,18 @@ import UIKit
 import WebKit
 
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     @IBOutlet weak var webView: WKWebView!
     var rssLink: String?
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
         
         print("WebViewController loaded its view.")
         
@@ -26,4 +30,12 @@ class WebViewController: UIViewController {
             webView.load(request)
         }
     }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        spinner.startAnimating()
+    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        spinner.stopAnimating()
+    }
+    
 }
