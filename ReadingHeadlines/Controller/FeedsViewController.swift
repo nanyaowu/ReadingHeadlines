@@ -24,6 +24,7 @@ class FeedsViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        
         print("FeedsViewController loaded its view")
         print(newsItemStore.allNewsItems.count)
         
@@ -36,7 +37,7 @@ class FeedsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,10 +67,10 @@ class FeedsViewController: UITableViewController {
         let item = newsItemStore.allNewsItems[indexPath.section][indexPath.row]
         cell.textLabel?.text = item.title
         
-        cell.accessoryView?.tintColor = item.isFavored ? UIColor.red : UIColor.lightGray
+        cell.accessoryView?.tintColor = .lightGray //item.isFavored ? UIColor.red : UIColor.lightGray
         
         
-        print(cell.textLabel?.text)
+        print(cell.textLabel?.text ?? "no text")
         
         return cell
     }
@@ -79,6 +80,9 @@ class FeedsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "RSSWeb", sender: self)
     }
+    
+    
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,7 +98,8 @@ class FeedsViewController: UITableViewController {
             }
             
         case "Favorite"?:
-            let destinationVC = segue.destination as! FavoriteViewController
+            print("switching to Favorite page.")
+            //let destinationVC = segue.destination as! FavoriteViewController
             //destinationVC.favorFeeds = favorFeeds
             
         default:
@@ -143,14 +148,15 @@ extension FeedsViewController: Favorited {
         
         //如果已經加過了加警示 沒有的話就直接加
         if hasFavored == true {
-            let title = "You have already favoed this feed."
-            let message = "Are you sure you wanna add this feed?"
+            let title = "這則新聞已在你的最愛中"
+            let message = "確定要增加這則新聞嗎?"
             let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             ac.addAction(cancelAction)
             
-            let addAction = UIAlertAction(title: "Add", style: .destructive) { (action) in
+            // 若按新增 將該feed加進最愛
+            let addAction = UIAlertAction(title: "新增", style: .destructive) { (action) in
                 favorFeeds.append(favorFeed)
                 self.saveFeeds()
             }
@@ -160,6 +166,14 @@ extension FeedsViewController: Favorited {
         } else {
             favorFeeds.append(favorFeed)
             self.saveFeeds()
+            
+            // 顯示已加入最愛
+            let title = "已加入最愛"
+            let ac = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+            present(ac, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                ac.dismiss(animated: false, completion: nil)
+            }
         }
     }
     

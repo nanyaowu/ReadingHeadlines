@@ -21,6 +21,8 @@ class FavoriteViewController: UITableViewController {
         super.viewDidLoad()
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
+        tableView.rowHeight = 60
+        
         loadFeeds()
     }
     
@@ -35,19 +37,35 @@ class FavoriteViewController: UITableViewController {
         
         let item = favorFeeds[indexPath.row] // as FavorFeed
         cell.textLabel?.text = item.title
+        cell.detailTextLabel?.text = item.detail
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        context.delete(favorFeeds[indexPath.row])
-        favorFeeds.remove(at: indexPath.row)
-        
-        saveFeeds()
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // If the table view is asking to commit a delete command...
+        if editingStyle == .delete {
+            let item = favorFeeds[indexPath.row]
+            
+            let title = "刪除: \(item.title!)?"
+            let message = "確定要刪除這則新聞嗎?"
+            
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            ac.addAction(cancelAction)
+            let deleteAction = UIAlertAction(title: "刪除", style: .destructive, handler: { (action) -> Void in
+                // Remove the item from the store
+                self.context.delete(favorFeeds[indexPath.row])
+                favorFeeds.remove(at: indexPath.row)
+                
+                self.saveFeeds()
+            })
+            ac.addAction(deleteAction)
+            
+            // Present the alert controller
+            present(ac, animated: true, completion: nil)
+        }
     }
     
     func loadFeeds() {
@@ -68,6 +86,26 @@ class FavoriteViewController: UITableViewController {
             print("Error saving context: \(error)")
         }
         tableView.reloadData()
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+        case "favorToRSSWeb"?:
+            let destinationVC = segue.destination as! WebViewController
+            if let section = tableView.indexPathForSelectedRow?.section,
+                let row = tableView.indexPathForSelectedRow?.row {
+                print(section)
+                print(row)
+                destinationVC.rssLink = favorFeeds[row].link
+            }
+            
+        default:
+            preconditionFailure("Unexpected segue identifier")
+            
+        }
+        
     }
     
 }

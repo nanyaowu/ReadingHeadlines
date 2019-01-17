@@ -11,6 +11,7 @@ import UIKit
 class NewsItemStore {
     
     var allNewsItems = [[NewsItem]]()
+    var newsURLs = ["https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money", "https://www.chinatimes.com/rss/chinatimes-focus.xml", "http://news.ltn.com.tw/rss/focus.xml"]
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -37,11 +38,7 @@ class NewsItemStore {
                     if parser.parse() == true {
                         print("Parse succeed. \(xmlAdress)")
                         let parseData = rssParserDelegate.getResult()
-                        //OperationQueue.main.addOperation {
-                        //self.serialQueue.async {
-                        //DispatchQueue.global().sync {
-                            completion(parseData)
-                        //}
+                        completion(parseData)
                         
                     } else {
                         print("Parse fail")
@@ -51,4 +48,64 @@ class NewsItemStore {
             task.resume()
         }
     }
+    
+    func downloadTask() -> String {
+        
+        
+        // 將newsURL中的網址下載到allNewItems
+        let group = DispatchGroup()
+        let serialQueue = DispatchQueue(label: "com.nanyao")
+        serialQueue.async(group: group) {
+            
+            for url in self.newsURLs {
+                group.enter()
+                self.fetchXML(withXMLAdress: url) {
+                    (parseData) in
+                    self.allNewsItems.append(parseData)
+                    group.leave()
+                }
+            }
+            
+        }
+        print("fetchstart")
+        group.wait()
+        print("fetch finished")
+        return "Fetching finished"
+    }
+    
+    
+    
+    
+    
+    func combinString(_: [[NewsItem]]) -> String {
+        
+        var newsString = String()
+        
+        for news in self.allNewsItems {
+            for item in news {
+                
+                // addding where the news is from
+                switch item.link?.prefix(15) {
+                case "http://news.ltn":
+                    newsString.append("自由時報。")
+                case "https://www.chi":
+                    newsString.append("中國時報。")
+                case "https://money.u":
+                    newsString.append("經濟日報。")
+                default:
+                    newsString.append("，")
+                }
+                
+                let tempTitle = item.title!.replacingOccurrences(of: " ", with: "，", options: .literal, range: nil)
+                let currentTitle = tempTitle.replacingOccurrences(of: "，，", with: "，", options: .literal, range: nil)
+                newsString.append(currentTitle)
+                newsString.append("。")
+                print("\(item.title ?? "no title")")
+            }
+        }
+        
+        return newsString
+        
+    }
+    
 }

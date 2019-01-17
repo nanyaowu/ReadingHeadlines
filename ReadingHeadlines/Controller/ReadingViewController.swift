@@ -23,64 +23,25 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Reading View is loaded")
         synth.delegate = self
         
-        spinner.startAnimating()
-        downloadTask()
-        
-        
-        
-        
-        
-
-        
+        DispatchQueue.main.async {
+            self.spinner.startAnimating()
+            print("spinner start animating")
+            self.downloadAndRenew()
+            print("stop group queue")
+        }
         
     }
     
-    
-    func downloadTask() {
-        let group = DispatchGroup()
-        let serialQueue = DispatchQueue(label: "com.nanyao", attributes: .concurrent)
-        
-        serialQueue.async(group: group) {
-            print("fetching 經濟日報")
-            group.enter()
-            self.newsItemStore.fetchXML(withXMLAdress: "https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money") {
-                (parseData) in
-                self.newsItemStore.allNewsItems.append(parseData)
-                print("經濟日報")
-                group.leave()
-            }
-            
-            group.enter()
-            print("fetching 中國時報")
-            self.newsItemStore.fetchXML(withXMLAdress: "https://www.chinatimes.com/rss/chinatimes-focus.xml") {
-                (parseData) in
-                self.newsItemStore.allNewsItems.append(parseData)
-                print("中國時報")
-                group.leave()
-            }
-            
-            group.enter()
-            print("fetching 自由時報")
-            self.newsItemStore.fetchXML(withXMLAdress: "http://news.ltn.com.tw/rss/focus.xml") {
-                (parseData) in
-                self.newsItemStore.allNewsItems.append(parseData)
-                print("自由時報")
-                group.leave()
-            }
-        }
-        
-        group.wait()
-        group.notify(queue: DispatchQueue.main) {
-            self.spinner.stopAnimating()
-            self.playButton.isHidden = false
-            print("stop animation")
-        }
-        
+    func downloadAndRenew() {
+        let notify = newsItemStore.downloadTask()
+        print(notify)
+        self.spinner.stopAnimating()
+        self.playButton.isHidden = false
         
     }
-    
     
     // MARK: 播放控制
     var isPlaying = false
@@ -88,38 +49,22 @@ class ReadingViewController: UIViewController, AVSpeechSynthesizerDelegate {
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
         
-        var itemsString = String()
-        
         if isPlaying == false {
             
             isPlaying = true
             playButton.setTitle("Pause", for: .normal)
             
-            // 可能可以寫成一個function
-            // 將要念的string結合
-            for news in newsItemStore.allNewsItems {
-                for item in news {
-                    switch item.link?.prefix(15) {
-                    case "http://news.ltn":
-                        itemsString.append("自由時報。")
-                    case "https://www.chi":
-                        itemsString.append("中國時報。")
-                    case "https://money.u":
-                        itemsString.append("經濟日報。")
-                    default:
-                        itemsString.append("，")
-                    }
-                    itemsString.append(item.title!)
-                    itemsString.append("。")
-                }
-            }
+            
+            let itemsString = newsItemStore.combinString(newsItemStore.allNewsItems)
             
             print(itemsString)
-            myUtterance = AVSpeechUtterance(string: itemsString)
+            
             myUtterance.rate = 0.5
             myUtterance.pitchMultiplier = 1.2
             myUtterance.postUtteranceDelay = 0.1
             myUtterance.volume = 1
+            
+            myUtterance = AVSpeechUtterance(string: itemsString)
             myUtterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
             synth.speak(myUtterance)
             

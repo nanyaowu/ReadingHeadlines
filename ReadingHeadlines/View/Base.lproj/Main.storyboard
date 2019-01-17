@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vnV-wT-C69">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellID" id="vnV-wT-C69">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vnV-wT-C69" id="VQb-rk-CbH">
@@ -37,7 +37,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="RSS Feeds" id="sLT-bb-NOa">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="PkD-oO-HY6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="PkD-oO-HY6">
                             <connections>
                                 <segue destination="QQP-Py-oSn" kind="show" identifier="Favorite" id="NQe-ZZ-ZJv"/>
                             </connections>
@@ -57,13 +57,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavorCell" id="Asm-7f-NOI">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavorCell" textLabel="tzA-Jh-n3G" detailTextLabel="m4b-f7-B67" imageView="K7j-Ld-Rzo" style="IBUITableViewCellStyleSubtitle" id="Asm-7f-NOI">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Asm-7f-NOI" id="q6l-xn-b6q">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tzA-Jh-n3G">
+                                            <rect key="frame" x="69" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4b-f7-B67">
+                                            <rect key="frame" x="69" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="heart" id="K7j-Ld-Rzo">
+                                            <rect key="frame" x="16" y="2" width="38" height="38"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="iKd-Kp-AHM" kind="show" identifier="favorToRSSWeb" id="ApO-lP-tB5"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -92,9 +115,14 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="a29-J6-dql">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="a29-J6-dql" firstAttribute="centerY" secondItem="0Mj-xW-3EU" secondAttribute="centerY" id="9cJ-UB-ihw"/>
+                            <constraint firstItem="a29-J6-dql" firstAttribute="centerX" secondItem="0Mj-xW-3EU" secondAttribute="centerX" id="TYg-Gi-WPV"/>
                             <constraint firstItem="Rg4-b5-LtQ" firstAttribute="top" secondItem="3mg-IB-70F" secondAttribute="top" id="ZMM-h1-l8W"/>
                             <constraint firstItem="3mg-IB-70F" firstAttribute="bottom" secondItem="Rg4-b5-LtQ" secondAttribute="bottom" id="aUn-0N-Dtx"/>
                             <constraint firstItem="3mg-IB-70F" firstAttribute="trailing" secondItem="Rg4-b5-LtQ" secondAttribute="trailing" id="cug-BU-2UL"/>
@@ -103,12 +131,13 @@
                         <viewLayoutGuide key="safeArea" id="3mg-IB-70F"/>
                     </view>
                     <connections>
+                        <outlet property="spinner" destination="a29-J6-dql" id="g9D-PN-kyK"/>
                         <outlet property="webView" destination="Rg4-b5-LtQ" id="kni-d6-f9L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mcQ-Cm-XUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2258.4000000000001" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2380" y="134"/>
         </scene>
         <!--News Reader-->
         <scene sceneID="GMG-DS-1Wf">
@@ -118,29 +147,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rrt-N1-Cz6">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSK-bh-kW1">
-                                <rect key="frame" x="153" y="304.5" width="69" height="58"/>
+                                <rect key="frame" x="87" y="304" width="201" height="58"/>
+                                <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                <state key="normal" title="Play"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="startReadingRSS:" destination="Uou-Gr-Fgk" eventType="touchUpInside" id="PfI-QZ-T1q"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rrt-N1-Cz6">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hSK-bh-kW1" firstAttribute="centerX" secondItem="zMW-lt-ecl" secondAttribute="centerX" id="AtK-Eg-6KO"/>
-                            <constraint firstItem="hSK-bh-kW1" firstAttribute="centerY" secondItem="zMW-lt-ecl" secondAttribute="centerY" id="Kla-9G-JDY"/>
+                            <constraint firstItem="8ls-LK-TqI" firstAttribute="bottom" secondItem="hSK-bh-kW1" secondAttribute="bottom" constant="305" id="3bc-Hh-bZb"/>
+                            <constraint firstItem="8ls-LK-TqI" firstAttribute="trailing" secondItem="hSK-bh-kW1" secondAttribute="trailing" constant="87" id="EuH-PL-L9D"/>
+                            <constraint firstItem="hSK-bh-kW1" firstAttribute="leading" secondItem="8ls-LK-TqI" secondAttribute="leading" constant="87" id="oWU-FE-zdr"/>
+                            <constraint firstItem="hSK-bh-kW1" firstAttribute="top" secondItem="8ls-LK-TqI" secondAttribute="top" constant="240" id="s9Q-Xg-oSx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8ls-LK-TqI"/>
                     </view>
                     <navigationItem key="navigationItem" title="News Reader" id="B9g-QM-fWr">
                         <barButtonItem key="backBarButtonItem" title="  " id="dSX-ob-aeI"/>
-                        <barButtonItem key="rightBarButtonItem" title="Feeds" style="plain" id="Ipf-ow-kGV">
+                        <barButtonItem key="rightBarButtonItem" title="Feeds" id="Ipf-ow-kGV">
                             <connections>
                                 <segue destination="Mfx-uo-QgN" kind="show" identifier="tableDetail" id="WFz-AU-033"/>
                             </connections>
@@ -153,7 +187,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4SR-df-pc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="134"/>
+            <point key="canvasLocation" x="768.79999999999995" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vVu-IB-Hu6">
@@ -163,6 +197,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ss7-Tb-5Pi">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -174,4 +211,10 @@
             <point key="canvasLocation" x="62" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart" width="37.5" height="37.5"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ApO-lP-tB5"/>
+    </inferredMetricsTieBreakers>
 </document>
