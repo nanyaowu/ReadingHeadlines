@@ -37,7 +37,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="RSS Feeds" id="sLT-bb-NOa">
-                        <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="PkD-oO-HY6">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="PkD-oO-HY6">
                             <connections>
                                 <segue destination="QQP-Py-oSn" kind="show" identifier="Favorite" id="NQe-ZZ-ZJv"/>
                             </connections>
@@ -57,7 +57,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavorCell" textLabel="tzA-Jh-n3G" detailTextLabel="m4b-f7-B67" imageView="K7j-Ld-Rzo" style="IBUITableViewCellStyleSubtitle" id="Asm-7f-NOI">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavorCell" textLabel="tzA-Jh-n3G" detailTextLabel="m4b-f7-B67" style="IBUITableViewCellStyleSubtitle" id="Asm-7f-NOI">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Asm-7f-NOI" id="q6l-xn-b6q">
@@ -65,23 +65,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tzA-Jh-n3G">
-                                            <rect key="frame" x="69" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4b-f7-B67">
-                                            <rect key="frame" x="69" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="heart" id="K7j-Ld-Rzo">
-                                            <rect key="frame" x="16" y="2" width="38" height="38"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -174,7 +170,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="News Reader" id="B9g-QM-fWr">
                         <barButtonItem key="backBarButtonItem" title="  " id="dSX-ob-aeI"/>
-                        <barButtonItem key="rightBarButtonItem" title="Feeds" id="Ipf-ow-kGV">
+                        <barButtonItem key="rightBarButtonItem" title="Feeds" style="plain" id="Ipf-ow-kGV">
                             <connections>
                                 <segue destination="Mfx-uo-QgN" kind="show" identifier="tableDetail" id="WFz-AU-033"/>
                             </connections>
@@ -211,9 +207,6 @@
             <point key="canvasLocation" x="62" y="134"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="heart" width="37.5" height="37.5"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ApO-lP-tB5"/>
     </inferredMetricsTieBreakers>

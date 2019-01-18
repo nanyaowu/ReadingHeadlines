@@ -28,6 +28,7 @@ class FeedsViewController: UITableViewController {
         print("FeedsViewController loaded its view")
         print(newsItemStore.allNewsItems.count)
         
+        tableView.rowHeight = 100
         tableView.register(FeedCell.self, forCellReuseIdentifier: cellID)
     }
     
