@@ -62,6 +62,7 @@ class NewsItemStore {
                 self.fetchXML(withXMLAdress: url) {
                     (parseData) in
                     self.allNewsItems.append(parseData)
+                    print(parseData)
                     group.leave()
                 }
             }
@@ -72,9 +73,6 @@ class NewsItemStore {
         print("fetch finished")
         return "Fetching finished"
     }
-    
-    
-    
     
     
     func combinString(_: [[NewsItem]]) -> String {

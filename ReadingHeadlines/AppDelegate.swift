@@ -23,9 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // ReadingViewController is initial controller
         let navController = window!.rootViewController as! UINavigationController
-        let readingController = navController.topViewController as! ReadingViewController
+        let CombineViewController = navController.topViewController as! CombineViewController
         
-        readingController.newsItemStore = newsItemStore
+        //readingController.newsItemStore = newsItemStore
+        
+        CombineViewController.newsItemStore = newsItemStore
         
         return true
         
