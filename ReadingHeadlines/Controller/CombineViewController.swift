@@ -29,6 +29,7 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         synth.delegate = self
+        newsItemStore = NewsItemStore()
         
         DispatchQueue.main.async {
             self.spinner.startAnimating()
@@ -84,8 +85,8 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create dequeueReusableCell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) //as! FeedCell
-        //cell.delegate = self
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FeedCell
+        cell.delegate = self
         
         // Set the text of cell with the title of the newsItem
         let item = newsItemStore.allNewsItems[indexPath.section][indexPath.row]
@@ -98,6 +99,15 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "RSSWeb", sender: self)
+        
+        
+    }
+    
     
     // MARK:- 播放控制
     var isPlaying = false
@@ -147,6 +157,15 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: prepare segure
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case "RSSWeb"?:
+            let destinationVC = segue.destination as! WebViewController
+            if let section = tableView.indexPathForSelectedRow?.section,
+                let row = tableView.indexPathForSelectedRow?.row {
+                print(section)
+                print(row)
+                destinationVC.rssLink = newsItemStore.allNewsItems[section][row].link
+            }
+            
         case "tableDetail"?:
             let destinationVC = segue.destination as! FeedsViewController
             destinationVC.newsItemStore = newsItemStore
