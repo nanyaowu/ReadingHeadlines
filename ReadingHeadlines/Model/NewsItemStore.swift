@@ -62,7 +62,7 @@ class NewsItemStore {
                 self.fetchXML(withXMLAdress: url) {
                     (parseData) in
                     self.allNewsItems.append(parseData)
-                    print(parseData)
+                    //print(parseData)
                     group.leave()
                 }
             }

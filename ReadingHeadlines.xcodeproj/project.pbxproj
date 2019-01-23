@@ -15,13 +15,11 @@
 		4EA2447C21B6B041005165CC /* NewsItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA2447B21B6B041005165CC /* NewsItemStore.swift */; };
 		4EAC8AF521B9103D00D66348 /* RSSParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAC8AF421B9103D00D66348 /* RSSParserDelegate.swift */; };
 		4ED6868F21B4EA21003EA8CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6868E21B4EA21003EA8CD /* AppDelegate.swift */; };
-		4ED6869121B4EA21003EA8CD /* FeedsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6869021B4EA21003EA8CD /* FeedsViewController.swift */; };
 		4ED6869421B4EA21003EA8CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED6869221B4EA21003EA8CD /* Main.storyboard */; };
 		4ED6869621B4EA22003EA8CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ED6869521B4EA22003EA8CD /* Assets.xcassets */; };
 		4ED6869921B4EA22003EA8CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ED6869721B4EA22003EA8CD /* LaunchScreen.storyboard */; };
 		4ED686A421B4EA22003EA8CD /* ReadingHeadlinesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED686A321B4EA22003EA8CD /* ReadingHeadlinesTests.swift */; };
 		4ED686AF21B4EA22003EA8CD /* ReadingHeadlinesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED686AE21B4EA22003EA8CD /* ReadingHeadlinesUITests.swift */; };
-		4ED9AFE221BE57F000FE1AD1 /* ReadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9AFE121BE57F000FE1AD1 /* ReadingViewController.swift */; };
 		4EF3256C21F43FEF00647A08 /* CombineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3256B21F43FEF00647A08 /* CombineViewController.swift */; };
 		BC1EB73ACDF3B106C9F39304 /* Pods_ReadingHeadlinesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6870703FA44740D19C7E9335 /* Pods_ReadingHeadlinesTests.framework */; };
 		C43B85B865A7C9286AD36F8B /* Pods_ReadingHeadlinesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E86DC3FF90037D194E9F45 /* Pods_ReadingHeadlinesUITests.framework */; };
@@ -57,7 +55,6 @@
 		4EAC8AF421B9103D00D66348 /* RSSParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSParserDelegate.swift; sourceTree = "<group>"; };
 		4ED6868B21B4EA21003EA8CD /* ReadingHeadlines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadingHeadlines.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ED6868E21B4EA21003EA8CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4ED6869021B4EA21003EA8CD /* FeedsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedsViewController.swift; sourceTree = "<group>"; };
 		4ED6869321B4EA21003EA8CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4ED6869521B4EA22003EA8CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ED6869821B4EA22003EA8CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,7 +65,6 @@
 		4ED686AA21B4EA22003EA8CD /* ReadingHeadlinesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReadingHeadlinesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ED686AE21B4EA22003EA8CD /* ReadingHeadlinesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingHeadlinesUITests.swift; sourceTree = "<group>"; };
 		4ED686B021B4EA22003EA8CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4ED9AFE121BE57F000FE1AD1 /* ReadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewController.swift; sourceTree = "<group>"; };
 		4EF3256B21F43FEF00647A08 /* CombineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineViewController.swift; sourceTree = "<group>"; };
 		66E86DC3FF90037D194E9F45 /* Pods_ReadingHeadlinesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReadingHeadlinesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6870703FA44740D19C7E9335 /* Pods_ReadingHeadlinesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReadingHeadlinesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,10 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				4EF3256B21F43FEF00647A08 /* CombineViewController.swift */,
-				4ED9AFE121BE57F000FE1AD1 /* ReadingViewController.swift */,
-				4ED6869021B4EA21003EA8CD /* FeedsViewController.swift */,
-				4EA2447721B6A68B005165CC /* WebViewController.swift */,
 				4E640A3F21EC5D04009BFFC0 /* FavoriteViewController.swift */,
+				4EA2447721B6A68B005165CC /* WebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -419,7 +413,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4ED6869121B4EA21003EA8CD /* FeedsViewController.swift in Sources */,
 				4EA2447A21B6AEB5005165CC /* NewsItem.swift in Sources */,
 				4EA2447821B6A68B005165CC /* WebViewController.swift in Sources */,
 				4ED6868F21B4EA21003EA8CD /* AppDelegate.swift in Sources */,
@@ -429,7 +422,6 @@
 				4E11FDFD21EC3B16008728CA /* DataModel.xcdatamodeld in Sources */,
 				4EA2447C21B6B041005165CC /* NewsItemStore.swift in Sources */,
 				4EF3256C21F43FEF00647A08 /* CombineViewController.swift in Sources */,
-				4ED9AFE221BE57F000FE1AD1 /* ReadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

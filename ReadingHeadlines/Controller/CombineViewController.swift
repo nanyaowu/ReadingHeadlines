@@ -15,7 +15,7 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var tableView: UITableView!
     @IBOutlet var playView: UIView!
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    let spinner1 = UIActivityIndicatorView()
     
     
     let synth = AVSpeechSynthesizer()
@@ -28,11 +28,18 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("CombineView loaded")
+        print("CombineView loaded")
+        print("CombineView loaded")
+        
         synth.delegate = self
         newsItemStore = NewsItemStore()
         
+        setLoadingScreen()
+        
         DispatchQueue.main.async {
-            self.spinner.startAnimating()
+            
+            
             print("spinner start animating")
             self.downloadAndRenew()
             print("stop group queue")
@@ -48,12 +55,15 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
+    
     func downloadAndRenew() {
-        let notify = newsItemStore.downloadTask()
-        print(notify)
+        print(newsItemStore.downloadTask())
+        print("download task finished")
         self.tableView.reloadData()
-        self.spinner.stopAnimating()
+        //self.spinner.stopAnimating()
+        print("stop spinnng")
         self.playButton.isHidden = false
+        self.removeLoadingScreen()
         
     }
     
@@ -94,17 +104,14 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.accessoryView?.tintColor = .lightGray //item.isFavored ? UIColor.red : UIColor.lightGray
         
-        
-        print(cell.textLabel?.text ?? "no text")
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "RSSWeb", sender: self)
-        
+        tableView.deselectRow(at: indexPath, animated: true)
+
         
     }
     
@@ -165,10 +172,6 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
                 print(row)
                 destinationVC.rssLink = newsItemStore.allNewsItems[section][row].link
             }
-            
-        case "tableDetail"?:
-            let destinationVC = segue.destination as! FeedsViewController
-            destinationVC.newsItemStore = newsItemStore
             
         default:
             preconditionFailure("Unexpected segue identifier")
@@ -248,5 +251,32 @@ extension CombineViewController: Favorited {
         } catch {
             print("Error saving context: \(error)")
         }
+    }
+    
+    private func setLoadingScreen() {
+        
+        // Sets the view which contains the loading text and the spinner
+        let width: CGFloat = 30
+        let height: CGFloat = 30
+        let x = (tableView.frame.width / 2) - width / 2
+        let y = (tableView.frame.height / 2) - height / 2 + (navigationController?.navigationBar.frame.height)!
+        
+        // Sets spinner
+        spinner1.style = .gray
+        spinner1.backgroundColor = .gray
+        spinner1.frame = CGRect(x: x, y: y, width: width, height: height)
+        spinner1.startAnimating()
+        
+        tableView.addSubview(spinner1)
+        
+    }
+    
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        
+        // Hides and stops the text and the spinner
+        spinner1.stopAnimating()
+        spinner1.isHidden = true
+        
     }
 }
