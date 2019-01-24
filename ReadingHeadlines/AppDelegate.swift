@@ -19,13 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // Create a NewsItemStore
-        let newsItemStore = NewsItemStore()
-        
-        // ReadingViewController is initial controller
-        let navController = window!.rootViewController as! UINavigationController
-        let readingController = navController.topViewController as! ReadingViewController
-        
-        readingController.newsItemStore = newsItemStore
+//        let newsItemStore = NewsItemStore()
+//        
+//        // ReadingViewController is initial controller
+//        let navController = window!.rootViewController as! UINavigationController
+//        let CombineViewController = navController.topViewController as! CombineViewController
+//        
+//        //readingController.newsItemStore = newsItemStore
+//        
+//        CombineViewController.newsItemStore = newsItemStore
         
         return true
         

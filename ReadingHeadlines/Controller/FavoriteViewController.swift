@@ -26,6 +26,12 @@ class FavoriteViewController: UITableViewController {
         loadFeeds()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidLoad()
+        loadFeeds()
+        tableView.reloadData()
+    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favorFeeds.count
