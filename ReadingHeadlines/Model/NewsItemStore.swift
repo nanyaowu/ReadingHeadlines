@@ -11,7 +11,7 @@ import UIKit
 class NewsItemStore {
     
     var allNewsItems = [[NewsItem]]()
-    var newsURLs = ["https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money", "https://www.chinatimes.com/rss/chinatimes-focus.xml", "http://news.ltn.com.tw/rss/focus.xml"]
+    var newsURLs = ["https://money.udn.com/rssfeed/news/1001/5591/7307?ch=money"]
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -101,6 +101,29 @@ class NewsItemStore {
                 print("\(item.title ?? "no title")")
             }
         }
+        
+        return newsString
+        
+    }
+    
+    func readingString(newsItem: NewsItem) -> String {
+        
+        var newsString = String()
+        
+        switch newsItem.link?.prefix(15) {
+        case "http://news.ltn":
+            newsString.append("自由時報。")
+        case "https://www.chi":
+            newsString.append("中國時報。")
+        case "https://money.u":
+            newsString.append("經濟日報。")
+        default:
+            newsString.append("，")
+        }
+        
+        let tempTitle = newsItem.title!.replacingOccurrences(of: " ", with: "，", options: .literal, range: nil)
+        let currentTitle = tempTitle.replacingOccurrences(of: "，，", with: "，", options: .literal, range: nil)
+        newsString.append(currentTitle)
         
         return newsString
         

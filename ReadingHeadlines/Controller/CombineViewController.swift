@@ -157,6 +157,8 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK:- 播放控制
     var isPlaying = false
     var isPausing = false
+    var feedsCounter = 0
+    var feedsTotal = 0
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
         
@@ -165,19 +167,34 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
             isPlaying = true
             playButton.setTitle("Pause", for: .normal)
             
+            for newsItem in newsItemStore.allNewsItems {
+                for item in newsItem {
+                    feedsTotal += 1
+                }
+            }
             
-            let itemsString = newsItemStore.combinString(newsItemStore.allNewsItems)
+            print(feedsTotal)
             
-            print(itemsString)
             
-            myUtterance.rate = 0.5
-            myUtterance.pitchMultiplier = 1.2
-            myUtterance.postUtteranceDelay = 0.1
-            myUtterance.volume = 1
+            for newsItem in newsItemStore.allNewsItems {
+                for item in newsItem {
+                    feedsCounter += 1
+                    let readingString = newsItemStore.readingString(newsItem: item)
+                    myUtterance = AVSpeechUtterance(string: readingString)
+                    myUtterance.rate = 1
+                    myUtterance.pitchMultiplier = 1.2
+                    myUtterance.postUtteranceDelay = 0.4
+                    myUtterance.volume = 1
+                    
+                    myUtterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
+                    synth.speak(myUtterance)
+                    
+                }
+            }
             
-            myUtterance = AVSpeechUtterance(string: itemsString)
-            myUtterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
-            synth.speak(myUtterance)
+            
+
+            
             
         } else {
             if isPausing == false {
@@ -194,8 +211,14 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //播放結束後button調整
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        isPlaying = false
-        playButton.setTitle("Play", for: .normal)
+        
+        if feedsCounter == feedsTotal {
+            isPlaying = false
+            playButton.setTitle("Play", for: .normal)
+            feedsCounter = 0
+            feedsTotal = 0
+        }
+        
     }
     
     
@@ -268,6 +291,5 @@ extension CombineViewController: Favorited {
             print("Error saving context: \(error)")
         }
     }
-    
     
 }
