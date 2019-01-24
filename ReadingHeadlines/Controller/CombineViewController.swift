@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import MediaPlayer
 
 class CombineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVSpeechSynthesizerDelegate {
     
@@ -17,6 +16,7 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var playButton: UIButton!
     let spinner1 = UIActivityIndicatorView()
     
+    let newsTalker = NewsTalker()
     
     let synth = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
@@ -178,7 +178,7 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             for newsItem in newsItemStore.allNewsItems {
                 for item in newsItem {
-                    feedsCounter += 1
+                    
                     let readingString = newsItemStore.readingString(newsItem: item)
                     myUtterance = AVSpeechUtterance(string: readingString)
                     myUtterance.rate = 1
@@ -191,9 +191,6 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                 }
             }
-            
-            
-
             
             
         } else {
@@ -211,7 +208,7 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //播放結束後button調整
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        
+        feedsCounter += 1
         if feedsCounter == feedsTotal {
             isPlaying = false
             playButton.setTitle("Play", for: .normal)
