@@ -29,28 +29,21 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CombineView loaded")
-        print("CombineView loaded")
-        print("CombineView loaded")
         
         synth.delegate = self
         newsItemStore = NewsItemStore()
-        
         setLoadingScreen()
+        print("spinner start animating")
         
         DispatchQueue.main.async {
-            
-            
-            print("spinner start animating")
             self.downloadAndRenew()
             print("stop group queue")
         }
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.rowHeight = 100
         tableView.register(FeedCell.self, forCellReuseIdentifier: cellID)
-        
         
     }
     
@@ -67,12 +60,35 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return newsItemStore.allNewsItems.count
+    private func setLoadingScreen() {
+        
+        // Sets the view which contains the loading text and the spinner
+        let width: CGFloat = 30
+        let height: CGFloat = 30
+        let x = (tableView.frame.width / 2) - width / 2
+        let y = (tableView.frame.height / 2) - height / 2 + (navigationController?.navigationBar.frame.height)!
+        
+        // Sets spinner
+        spinner1.style = .gray
+        spinner1.frame = CGRect(x: x, y: y, width: width, height: height)
+        spinner1.startAnimating()
+        
+        tableView.addSubview(spinner1)
+        
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        
+        // Hides and stops the text and the spinner
+        spinner1.stopAnimating()
+        spinner1.isHidden = true
+        
+    }
+    
+    // MARK:- UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return newsItemStore.allNewsItems.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,13 +123,35 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    // MARK:- UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         performSegue(withIdentifier: "RSSWeb", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
 
-        
     }
+    
+    // MARK: prepare segure
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "RSSWeb"?:
+            let destinationVC = segue.destination as! WebViewController
+            if let section = tableView.indexPathForSelectedRow?.section,
+                let row = tableView.indexPathForSelectedRow?.row {
+                print(section)
+                print(row)
+                destinationVC.rssLink = newsItemStore.allNewsItems[section][row].link
+            }
+            
+        default:
+            preconditionFailure("Unexpected segue identifier")
+        }
+    }
+    
     
     
     // MARK:- 播放控制
@@ -161,27 +199,10 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    // MARK: prepare segure
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "RSSWeb"?:
-            let destinationVC = segue.destination as! WebViewController
-            if let section = tableView.indexPathForSelectedRow?.section,
-                let row = tableView.indexPathForSelectedRow?.row {
-                print(section)
-                print(row)
-                destinationVC.rssLink = newsItemStore.allNewsItems[section][row].link
-            }
-            
-        default:
-            preconditionFailure("Unexpected segue identifier")
-        }
-    }
-    
     
 }
 
-// MARK: - Favorited
+// MARK: - Conform to Favorited
 extension CombineViewController: Favorited {
     
     // 傳遞favored button被按到
@@ -192,14 +213,9 @@ extension CombineViewController: Favorited {
             print("did not generate indexPath.")
             return
         }
-        
-        //reverse the favorite icon
-        let tappedFeed = newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row]
-        newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row].isFavored = !tappedFeed.isFavored
-        tableView.reloadRows(at: [tappedIndexPath], with: .fade)
-        
-        
+    
         // copy the information of the rows to foverFeeds
+         let tappedFeed = newsItemStore.allNewsItems[tappedIndexPath.section][tappedIndexPath.row]
         let favorFeed = FavorFeeds(context: self.context)
         favorFeed.title = tappedFeed.title
         favorFeed.link = tappedFeed.link
@@ -253,30 +269,5 @@ extension CombineViewController: Favorited {
         }
     }
     
-    private func setLoadingScreen() {
-        
-        // Sets the view which contains the loading text and the spinner
-        let width: CGFloat = 30
-        let height: CGFloat = 30
-        let x = (tableView.frame.width / 2) - width / 2
-        let y = (tableView.frame.height / 2) - height / 2 + (navigationController?.navigationBar.frame.height)!
-        
-        // Sets spinner
-        spinner1.style = .gray
-        spinner1.backgroundColor = .gray
-        spinner1.frame = CGRect(x: x, y: y, width: width, height: height)
-        spinner1.startAnimating()
-        
-        tableView.addSubview(spinner1)
-        
-    }
     
-    // Remove the activity indicator from the main view
-    private func removeLoadingScreen() {
-        
-        // Hides and stops the text and the spinner
-        spinner1.stopAnimating()
-        spinner1.isHidden = true
-        
-    }
 }
