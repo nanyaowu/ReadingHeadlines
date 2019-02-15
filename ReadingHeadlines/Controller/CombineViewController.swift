@@ -8,7 +8,10 @@
 
 import UIKit
 import AVFoundation
-import MediaPlayer
+
+// 背景播放功能
+// user default畫面
+
 
 class CombineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVSpeechSynthesizerDelegate {
     
@@ -17,6 +20,7 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var playButton: UIButton!
     let spinner1 = UIActivityIndicatorView()
     
+    let newsTalker = NewsTalker()
     
     let synth = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
@@ -161,67 +165,9 @@ class CombineViewController: UIViewController, UITableViewDelegate, UITableViewD
     var feedsTotal = 0
     
     @IBAction func startReadingRSS(_ sender: UIButton) {
-        
-        if isPlaying == false {
-            
-            isPlaying = true
-            playButton.setTitle("Pause", for: .normal)
-            
-            for newsItem in newsItemStore.allNewsItems {
-                for item in newsItem {
-                    feedsTotal += 1
-                }
-            }
-            
-            print(feedsTotal)
-            
-            
-            for newsItem in newsItemStore.allNewsItems {
-                for item in newsItem {
-                    feedsCounter += 1
-                    let readingString = newsItemStore.readingString(newsItem: item)
-                    myUtterance = AVSpeechUtterance(string: readingString)
-                    myUtterance.rate = 1
-                    myUtterance.pitchMultiplier = 1.2
-                    myUtterance.postUtteranceDelay = 0.4
-                    myUtterance.volume = 1
-                    
-                    myUtterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
-                    synth.speak(myUtterance)
-                    
-                }
-            }
-            
-            
-
-            
-            
-        } else {
-            if isPausing == false {
-                isPausing = true
-                synth.pauseSpeaking(at: .immediate)
-                playButton.setTitle("Continue", for: .normal)
-            } else {
-                isPausing = false
-                synth.continueSpeaking()
-                playButton.setTitle("Pause", for: .normal)
-            }
-        }
+        newsTalker.playButton = sender
+        newsTalker.playButtonPressed(newsItemStore: newsItemStore)
     }
-    
-    //播放結束後button調整
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        
-        if feedsCounter == feedsTotal {
-            isPlaying = false
-            playButton.setTitle("Play", for: .normal)
-            feedsCounter = 0
-            feedsTotal = 0
-        }
-        
-    }
-    
-    
     
 }
 
