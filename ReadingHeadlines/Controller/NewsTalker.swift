@@ -26,7 +26,7 @@ class NewsTalker: NSObject, AVSpeechSynthesizerDelegate {
     
     //var playButton: UIButton?
     
-    func playButtonPressed(newsItemStore: NewsItemStore, synth: AVSpeechSynthesizer) {
+    func playButtonPressed(newsItemStore: NewsItemStore) {
         
         guard playButton != nil else {
             print("playButton not initialized")
@@ -79,6 +79,7 @@ class NewsTalker: NSObject, AVSpeechSynthesizerDelegate {
         }
     }
     
+    // 調整結束後的button調整
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         
         guard playButton != nil else {
