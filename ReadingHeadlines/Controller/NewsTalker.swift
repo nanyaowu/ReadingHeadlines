@@ -54,7 +54,7 @@ class NewsTalker: NSObject, AVSpeechSynthesizerDelegate {
                     
                     let readingString = newsItemStore.readingString(newsItem: item)
                     myUtterance = AVSpeechUtterance(string: readingString)
-                    myUtterance.rate = 1
+                    myUtterance.rate = 0.45
                     myUtterance.pitchMultiplier = 1.2
                     myUtterance.postUtteranceDelay = 0.4
                     myUtterance.volume = 1

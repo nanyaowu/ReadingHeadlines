@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        //readingController.newsItemStore = newsItemStore
 //        
 //        CombineViewController.newsItemStore = newsItemStore
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try audioSession.setActive(true)
+        } catch {
+            print(error)
+        }
         
         return true
         
